@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+*.eggs/
+dist/
+build/
+
+# Ambiente virtual
+venv/
+ENV/
+env/
+.venv/
+
+# Arquivos de configuração do ambiente
+.env
+.env.local
+
+# Configurações de IDEs
+.vscode/
+.idea/
+
+# Arquivos de log
+*.log
+
+# Arquivos de cache
+*.cache
+*.tmp
+
+# Diretórios e arquivos de saída de ferramentas de análise
+migrations/
+*.sqlite3
+*.db
+
+
+# Arquivos de configuração do sistema
+.DS_Store
+Thumbs.db
