@@ -138,8 +138,8 @@ Este projeto está licenciado sob a [MIT License](LICENSE).
 ## 📞 Contato
 
 Para dúvidas ou sugestões, entre em contato:
-- **Email**: thaleson@example.com
-- **LinkedIn**: [Thaleson](https://www.linkedin.com/in/thaleson)
+- **Email**: thaleson19@hotmail.com
+- **LinkedIn**: [Thaleson](https://www.linkedin.com/in/thaleson-silva/)
 
 ---
 
