@@ -41,7 +41,7 @@ elif selected == "Segmentação de Clientes":
     from pages.nav.segmentacao_clientes import run
     run()
 elif selected == "Análise de Dados de Clientes":
-    from pages.nav.feedback_clientes import run
+    from pages.nav.analise_dados import run
     run()
 elif selected == "Previsão das vendas" :
     from pages.nav.previsao import run
