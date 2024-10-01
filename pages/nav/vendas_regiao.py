@@ -21,57 +21,63 @@ def run():
     # Agrupando vendas por UF
     vendas_por_uf = vendas_filiais.groupby('UF')['VALOR_VENDA'].sum().reset_index()
 
-    # Gráfico 1: Vendas por UF
-    fig, ax = plt.subplots(figsize=(8, 6))
+    # ---- Gráfico 1: Vendas por UF ----
+    st.subheader("Vendas por Unidade Federativa (UF)")
+    st.markdown("""
+    O gráfico abaixo apresenta o valor total das vendas por UF. Este gráfico é útil para identificar onde estão localizados os maiores mercados e oportunidades.
+    """)
+
+    fig, ax = plt.subplots(figsize=(8, 8))
     sns.barplot(data=vendas_por_uf, x='UF', y='VALOR_VENDA', palette='viridis', ax=ax)
-    ax.set_title('Vendas por UF', fontsize=16)
+    ax.set_title('Vendas por UF', fontsize=16, pad=20)  # O valor 20 aumenta a distância
+
     ax.set_xlabel('UF', fontsize=14)
     ax.set_ylabel('Valor das Vendas (R$)', fontsize=14)
-    
-    # Adicionando rótulos nas barras com espaçamento
+
+    # Adicionando rótulos nas barras
     for index, row in vendas_por_uf.iterrows():
-        ax.text(row.name, row.VALOR_VENDA + 0.1 * max(vendas_por_uf.VALOR_VENDA),  # Aumentado para espaçamento
-                f'R$ {row.VALOR_VENDA:,.2f}', 
-                color='black', ha='center', fontsize=12)
+        ax.text(row.name, row.VALOR_VENDA + 0.05 * max(vendas_por_uf.VALOR_VENDA),
+                f'R$ {row.VALOR_VENDA:,.2f}', color='black', ha='center', fontsize=10)
 
     st.pyplot(fig)
 
-    # Gráfico 2: Vendas ao longo do tempo por UF
+    # ---- Gráfico 2: Vendas ao Longo do Tempo por UF ----
+    st.subheader("Vendas ao Longo do Tempo por UF")
+    st.markdown("""
+    Este gráfico mostra como as vendas se comportam ao longo do tempo, separadas por UF. Ele pode revelar sazonalidades ou picos de vendas em certas regiões.
+    """)
+
     vendas_por_data_uf = vendas_filiais.groupby(['DATA_VENDA', 'UF'])['VALOR_VENDA'].sum().reset_index()
     fig, ax = plt.subplots(figsize=(12, 6))
     sns.lineplot(data=vendas_por_data_uf, x='DATA_VENDA', y='VALOR_VENDA', hue='UF', marker='o', ax=ax)
-    ax.set_title('Vendas ao Longo do Tempo por UF', fontsize=16)
+    ax.set_title('Vendas ao Longo do Tempo por UF', fontsize=16 )
     ax.set_xlabel('Data da Venda', fontsize=14)
     ax.set_ylabel('Valor Total das Vendas (R$)', fontsize=14)
-
-    # Adicionando rótulos de dados com espaçamento
-    for u in vendas_por_data_uf['UF'].unique():
-        subset = vendas_por_data_uf[vendas_por_data_uf['UF'] == u]
-        for index, row in subset.iterrows():
-            ax.text(row.DATA_VENDA, row.VALOR_VENDA + 0.1 * max(vendas_por_data_uf.VALOR_VENDA),  # Aumentado para espaçamento
-                    f'R$ {row.VALOR_VENDA:,.2f}', 
-                    color='black', ha='center', fontsize=8)
-
     ax.legend(title='UF', bbox_to_anchor=(1.05, 1), loc='upper left')
+
     st.pyplot(fig)
 
-    # Gráfico 3: Top 5 UFs com Maior Vendas
+    # ---- Gráfico 3: Top 5 UFs com Maior Vendas ----
+    st.subheader("Top 5 UFs com Maior Vendas")
+    st.markdown("""
+    Aqui estão as 5 UFs com o maior valor total de vendas. Esse gráfico destaca as regiões mais lucrativas.
+    """)
+
     top_5_ufs = vendas_por_uf.nlargest(5, 'VALOR_VENDA')
     fig, ax = plt.subplots(figsize=(8, 6))
     sns.barplot(data=top_5_ufs, x='UF', y='VALOR_VENDA', palette='magma', ax=ax)
-    ax.set_title('Top 5 UFs com Maior Vendas', fontsize=16)
+    ax.set_title('Top 5 UFs com Maior Vendas', fontsize=16 ,pad=20)
     ax.set_xlabel('UF', fontsize=14)
     ax.set_ylabel('Valor das Vendas (R$)', fontsize=14)
-    
-    # Adicionando rótulos nas barras com espaçamento
+
+    # Adicionando rótulos nas barras
     for index, row in top_5_ufs.iterrows():
-        ax.text(row.name, row.VALOR_VENDA + 0.1 * max(top_5_ufs.VALOR_VENDA),  # Aumentado para espaçamento
-                f'R$ {row.VALOR_VENDA:,.2f}', 
-                color='black', ha='center', fontsize=12)
+        ax.text(row.name, row.VALOR_VENDA + 0.05 * max(top_5_ufs.VALOR_VENDA),
+                f'R$ {row.VALOR_VENDA:,.2f}', color='black', ha='center', fontsize=10)
 
     st.pyplot(fig)
 
-    # Análise do desempenho de vendas por UF
+    # ---- Análise do desempenho de vendas por UF ----
     st.markdown(
         """
         <div style='background-color: #0000FF; padding: 15px; border-radius: 8px; margin-top: 20px;'>
