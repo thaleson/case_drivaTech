@@ -57,25 +57,8 @@ def run():
 
     st.pyplot(fig)
 
-    # ---- Gráfico 3: Top 5 UFs com Maior Vendas ----
-    st.subheader("Top 5 UFs com Maior Vendas")
-    st.markdown("""
-    Aqui estão as 5 UFs com o maior valor total de vendas. Esse gráfico destaca as regiões mais lucrativas.
-    """)
+   
 
-    top_5_ufs = vendas_por_uf.nlargest(5, 'VALOR_VENDA')
-    fig, ax = plt.subplots(figsize=(8, 6))
-    sns.barplot(data=top_5_ufs, x='UF', y='VALOR_VENDA', palette='magma', ax=ax)
-    ax.set_title('Top 5 UFs com Maior Vendas', fontsize=16 ,pad=20)
-    ax.set_xlabel('UF', fontsize=14)
-    ax.set_ylabel('Valor das Vendas (R$)', fontsize=14)
-
-    # Adicionando rótulos nas barras
-    for index, row in top_5_ufs.iterrows():
-        ax.text(row.name, row.VALOR_VENDA + 0.05 * max(top_5_ufs.VALOR_VENDA),
-                f'R$ {row.VALOR_VENDA:,.2f}', color='black', ha='center', fontsize=10)
-
-    st.pyplot(fig)
 
     # ---- Análise do desempenho de vendas por UF ----
     st.markdown(
@@ -83,11 +66,10 @@ def run():
         <div style='background-color: #0000FF; padding: 15px; border-radius: 8px; margin-top: 20px;'>
             <h4>📊 Análise do Desempenho de Vendas por Região:</h4>
             <p>O gráfico acima mostra o total de vendas agrupadas por Unidade Federativa (UF). Vamos explorar alguns pontos importantes:</p>
-            <p><strong>UF com maior desempenho:</strong> A região que se destaca com um total de vendas significativo é <strong>São Paulo (SP)</strong>. Com vendas que alcançam até <strong>R$ 4 milhões</strong>, SP é um mercado crucial e representa uma grande oportunidade para expandir estratégias de marketing e aumentar a penetração de mercado.</p>
+            <p><strong>UF com maior desempenho:</strong> A região que se destaca com um total de vendas significativo é <strong> Paraná (PR)</strong>. Com vendas que alcançam até <strong>R$ 4 milhões</strong>,  PR é um mercado crucial e representa uma grande oportunidade para expandir estratégias de marketing e aumentar a penetração de mercado.</p>
             <p><strong>Regiões com vendas moderadas:</strong> Estados como <strong>Minas Gerais (MG)</strong> e <strong>Rio de Janeiro (RJ)</strong> também mostram um desempenho notável, com vendas variando em torno de <strong>R$ 2 milhões</strong>. Essas regiões devem ser priorizadas em campanhas promocionais e eventos locais, visando engajar ainda mais os consumidores.</p>
             <p><strong>Regiões com baixo desempenho:</strong> Por outro lado, estados com vendas em torno de <strong>R$ 0 a R$ 1 milhão</strong>, como <strong>Piauí (PI)</strong> e <strong>Alagoas (AL)</strong>, apresentam desafios. Nesses casos, é essencial investigar as causas desse baixo desempenho e avaliar a possibilidade de adaptar ofertas ou fortalecer a presença de mercado.</p>
             <p><strong>Tendências ao longo do tempo:</strong> O gráfico de vendas ao longo do tempo revela tendências que podem ser úteis para planejar estoques e promoções. Observe que algumas UFs podem ter picos de vendas em determinados períodos, indicando sazonalidade que pode ser explorada em campanhas futuras.</p>
-            <p><strong>Top 5 UFs:</strong> A análise dos cinco principais estados em vendas destaca os mercados mais lucrativos e onde o foco das estratégias de vendas deve ser reforçado.</p>
             <p>Em suma, a análise das vendas por região oferece insights valiosos que podem guiar as decisões estratégicas da empresa. Ao entender quais regiões apresentam maiores oportunidades e quais precisam de atenção, é possível direcionar esforços de vendas e marketing de forma mais eficiente.</p>
         </div>
         """, unsafe_allow_html=True
