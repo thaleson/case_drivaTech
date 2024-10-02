@@ -1,11 +1,10 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
+import plotly.express as px
 
 def run():
     st.title("📦 Desempenho de Vendas por Filial")
-    
+
     # Carregando os dados
     vendas = pd.read_csv('data/VENDAS.csv', delimiter=';')
     filiais = pd.read_csv('data/FILIAIS.csv', delimiter=';')
@@ -18,46 +17,57 @@ def run():
     vendas_por_filial = vendas.groupby('ID_FILIAL')['VALOR_VENDA'].sum().reset_index()
     vendas_por_filial = vendas_por_filial.merge(filiais[['ID_FILIAL', 'NOME_FILIAL']], on='ID_FILIAL')
 
-    # Plotando
-    fig, ax = plt.subplots(figsize=(12, 8))
-    sns.barplot(data=vendas_por_filial, x='NOME_FILIAL', y='VALOR_VENDA', palette='magma', ax=ax)
-    ax.set_title('Total de Vendas por Filial')
-    ax.set_xlabel('Filial')
-    ax.set_ylabel('Valor Total das Vendas (R$)')
-    st.pyplot(fig)
+    # ---- Gráfico: Vendas por Filial ----
+    st.subheader("Total de Vendas por Filial")
+    st.markdown("""O gráfico abaixo mostra o total de vendas por filial. Ele é útil para visualizar rapidamente quais filiais estão se destacando.""")
+
+    # Criando o gráfico de barras com Plotly
+    fig = px.bar(vendas_por_filial, x='NOME_FILIAL', y='VALOR_VENDA',
+                 title='Total de Vendas por Filial',
+                 labels={'VALOR_VENDA': 'Valor Total das Vendas (R$)', 'NOME_FILIAL': 'Filial'},
+                 color='VALOR_VENDA',
+                 color_continuous_scale=px.colors.sequential.Plasma)  # Usando uma paleta de cores
+
+    st.plotly_chart(fig)
 
     # Análise do desempenho de produtos por filial
     st.markdown(
         """
-        ### Análise de Vendas por Filial
+        <div style='padding: 20px; border-radius: 10px; margin-top: 20px;'>
+            <h4 style='text-align: center; color: #007BFF;'>📊 Análise de Vendas por Filial</h4>
+            <div style='display: flex; justify-content: space-around; flex-wrap: wrap; margin-top: 20px;'>
+                <div style='flex: 1; min-width: 250px; margin: 10px; background-color: #ADD8E6; padding: 15px; border-radius: 10px;'>
+                    <h5 style='color: #00008B;'>🔵 BATEL</h5>
+                    <p style='color: #000;'>Desempenho: Cerca de R$ 1,6 milhões em vendas. <br> Interpretação: Localização estratégica e equipe de vendas eficaz.</p>
+                </div>
+                <div style='flex: 1; min-width: 250px; margin: 10px; background-color: #98FB98; padding: 15px; border-radius: 10px;'>
+                    <h5 style='color: #006400;'>🟢 AGUA VERDE</h5>
+                    <p style='color: #000;'>Desempenho: Vendas significativas, mas abaixo de BATEL. <br> Interpretação: Bom desempenho, semelhante a BATEL.</p>
+                </div>
+                <div style='flex: 1; min-width: 250px; margin: 10px; background-color: #F08080; padding: 15px; border-radius: 10px;'>
+                    <h5 style='color: #8B0000;'>🔴 UBERABA e CABRAL</h5>
+                    <p style='color: #000;'>Desempenho: Vendas semelhantes, menores que BATEL e AGUA VERDE. <br> Interpretação: Necessita investigar desafios específicos.</p>
+                </div>
+                <div style='flex: 1; min-width: 250px; margin: 10px; background-color: #FFB6C1; padding: 15px; border-radius: 10px;'>
+                    <h5 style='color: #8B0000;'>🔴 BOM RETIRO</h5>
+                    <p style='color: #000;'>Desempenho: Menor volume de vendas. <br> Interpretação: Sinais de problemas que precisam ser abordados.</p>
+                </div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True
+    )
 
-        O gráfico mostra o total de vendas em reais (R$) de cinco filiais diferentes: **BATEL**, **AGUA VERDE**, **UBERABA**, **CABRAL** e **BOM RETIRO**. Aqui está uma análise detalhada:
-
-        1. **BATEL**:
-           - **Desempenho**: Esta filial lidera com folga, alcançando cerca de 1,6 milhões de reais em vendas.
-           - **Interpretação**: O alto volume de vendas pode indicar uma localização estratégica, uma equipe de vendas eficiente ou uma base de clientes fiel.
-
-        2. **AGUA VERDE**:
-           - **Desempenho**: Segunda colocada, com vendas significativas, mas ainda abaixo de BATEL.
-           - **Interpretação**: Embora não tão alta quanto BATEL, esta filial também demonstra um bom desempenho, possivelmente devido a fatores semelhantes.
-
-        3. **UBERABA** e **CABRAL**:
-           - **Desempenho**: Ambas as filiais têm vendas semelhantes, mas consideravelmente menores que BATEL e AGUA VERDE.
-           - **Interpretação**: Pode ser necessário investigar se há desafios específicos nessas regiões, como menor demanda ou concorrência mais acirrada.
-
-        4. **BOM RETIRO**:
-           - **Desempenho**: Esta filial tem o menor volume de vendas.
-           - **Interpretação**: A baixa performance pode ser um sinal de problemas que precisam ser abordados, como localização desfavorável, estratégias de marketing ineficazes ou necessidade de treinamento da equipe.
-
-        ### Conclusão
-
-        Ao analisar esses dados, é importante lembrar que cada filial é composta por pessoas que trabalham duro para alcançar seus objetivos. As diferenças de desempenho podem ser influenciadas por diversos fatores, incluindo o ambiente de trabalho, a motivação da equipe e as condições econômicas locais. 
-
-        ### Próximos Passos
-
-        1. **Para BATEL e AGUA VERDE**: Continuar investindo nas estratégias que estão funcionando bem e explorar oportunidades para aumentar ainda mais as vendas.
-        2. **Para UBERABA e CABRAL**: Realizar uma análise mais detalhada para identificar áreas de melhoria e implementar ações específicas para aumentar as vendas.
-        3. **Para BOM RETIRO**: Investigar profundamente os motivos da baixa performance e desenvolver um plano de ação focado em reverter essa situação.
+    # Conclusões e Próximos Passos
+    st.markdown(
+        """
+        <div style='padding: 20px; border-radius: 10px; margin-top: 20px;'>
+            <h4 style='color: #663399;'>✅ Conclusão e Próximos Passos</h4>
+            <ul>
+                <li><strong>Para BATEL e AGUA VERDE:</strong> Continuar investindo nas estratégias que estão funcionando e explorar oportunidades.</li>
+                <li><strong>Para UBERABA e CABRAL:</strong> Análise detalhada para identificar áreas de melhoria.</li>
+                <li><strong>Para BOM RETIRO:</strong> Investigar a baixa performance e desenvolver um plano de ação focado.</li>
+            </ul>
+        </div>
         """, unsafe_allow_html=True
     )
 

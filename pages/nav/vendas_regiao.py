@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
+import plotly.express as px
 
 def run():
     st.title("📍 Vendas por Região")
@@ -23,54 +22,42 @@ def run():
 
     # ---- Gráfico 1: Vendas por UF ----
     st.subheader("Vendas por Unidade Federativa (UF)")
-    st.markdown("""
-    O gráfico abaixo apresenta o valor total das vendas por UF. Este gráfico é útil para identificar onde estão localizados os maiores mercados e oportunidades.
-    """)
+    st.markdown("""O gráfico abaixo apresenta o valor total das vendas por UF. Este gráfico é útil para identificar onde estão localizados os maiores mercados e oportunidades.""")
 
-    fig, ax = plt.subplots(figsize=(8, 8))
-    sns.barplot(data=vendas_por_uf, x='UF', y='VALOR_VENDA', palette='viridis', ax=ax)
-    ax.set_title('Vendas por UF', fontsize=16, pad=20)  # O valor 20 aumenta a distância
+    # Criando o gráfico de barras
+    fig1 = px.bar(vendas_por_uf, x='UF', y='VALOR_VENDA',
+                  title='Vendas por UF',
+                  labels={'VALOR_VENDA': 'Valor das Vendas (R$)', 'UF': 'UF'},
+                  color='VALOR_VENDA',
+                  color_continuous_scale=px.colors.qualitative.Plotly)  # Usando a paleta Plotly
 
-    ax.set_xlabel('UF', fontsize=14)
-    ax.set_ylabel('Valor das Vendas (R$)', fontsize=14)
-
-    # Adicionando rótulos nas barras
-    for index, row in vendas_por_uf.iterrows():
-        ax.text(row.name, row.VALOR_VENDA + 0.05 * max(vendas_por_uf.VALOR_VENDA),
-                f'R$ {row.VALOR_VENDA:,.2f}', color='black', ha='center', fontsize=10)
-
-    st.pyplot(fig)
+    st.plotly_chart(fig1)
 
     # ---- Gráfico 2: Vendas ao Longo do Tempo por UF ----
     st.subheader("Vendas ao Longo do Tempo por UF")
-    st.markdown("""
-    Este gráfico mostra como as vendas se comportam ao longo do tempo, separadas por UF. Ele pode revelar sazonalidades ou picos de vendas em certas regiões.
-    """)
+    st.markdown("""Este gráfico mostra como as vendas se comportam ao longo do tempo, separadas por UF. Ele pode revelar sazonalidades ou picos de vendas em certas regiões.""")
 
     vendas_por_data_uf = vendas_filiais.groupby(['DATA_VENDA', 'UF'])['VALOR_VENDA'].sum().reset_index()
-    fig, ax = plt.subplots(figsize=(12, 6))
-    sns.lineplot(data=vendas_por_data_uf, x='DATA_VENDA', y='VALOR_VENDA', hue='UF', marker='o', ax=ax)
-    ax.set_title('Vendas ao Longo do Tempo por UF', fontsize=16 )
-    ax.set_xlabel('Data da Venda', fontsize=14)
-    ax.set_ylabel('Valor Total das Vendas (R$)', fontsize=14)
-    ax.legend(title='UF', bbox_to_anchor=(1.05, 1), loc='upper left')
 
-    st.pyplot(fig)
+    # Criando o gráfico de linha
+    fig2 = px.line(vendas_por_data_uf, x='DATA_VENDA', y='VALOR_VENDA', color='UF',
+                   title='Vendas ao Longo do Tempo por UF',
+                   labels={'VALOR_VENDA': 'Valor Total das Vendas (R$)', 'DATA_VENDA': 'Data da Venda'},
+                   markers=True)
 
-   
-
+    st.plotly_chart(fig2)
 
     # ---- Análise do desempenho de vendas por UF ----
     st.markdown(
         """
-        <div style='background-color: #0000FF; padding: 15px; border-radius: 8px; margin-top: 20px;'>
-            <h4>📊 Análise do Desempenho de Vendas por Região:</h4>
-            <p>O gráfico acima mostra o total de vendas agrupadas por Unidade Federativa (UF). Vamos explorar alguns pontos importantes:</p>
-            <p><strong>UF com maior desempenho:</strong> A região que se destaca com um total de vendas significativo é <strong> Paraná (PR)</strong>. Com vendas que alcançam até <strong>R$ 4 milhões</strong>,  PR é um mercado crucial e representa uma grande oportunidade para expandir estratégias de marketing e aumentar a penetração de mercado.</p>
-            <p><strong>Regiões com vendas moderadas:</strong> Estados como <strong>Minas Gerais (MG)</strong> e <strong>Rio de Janeiro (RJ)</strong> também mostram um desempenho notável, com vendas variando em torno de <strong>R$ 2 milhões</strong>. Essas regiões devem ser priorizadas em campanhas promocionais e eventos locais, visando engajar ainda mais os consumidores.</p>
-            <p><strong>Regiões com baixo desempenho:</strong> Por outro lado, estados com vendas em torno de <strong>R$ 0 a R$ 1 milhão</strong>, como <strong>Piauí (PI)</strong> e <strong>Alagoas (AL)</strong>, apresentam desafios. Nesses casos, é essencial investigar as causas desse baixo desempenho e avaliar a possibilidade de adaptar ofertas ou fortalecer a presença de mercado.</p>
-            <p><strong>Tendências ao longo do tempo:</strong> O gráfico de vendas ao longo do tempo revela tendências que podem ser úteis para planejar estoques e promoções. Observe que algumas UFs podem ter picos de vendas em determinados períodos, indicando sazonalidade que pode ser explorada em campanhas futuras.</p>
-            <p>Em suma, a análise das vendas por região oferece insights valiosos que podem guiar as decisões estratégicas da empresa. Ao entender quais regiões apresentam maiores oportunidades e quais precisam de atenção, é possível direcionar esforços de vendas e marketing de forma mais eficiente.</p>
+        <div style='background-color: #1a1a1a; padding: 20px; border-radius: 10px; margin-top: 20px;'>
+            <h4 style='color: #f0db4f;'>📊 Análise do Desempenho de Vendas por Região:</h4>
+            <p style='color: #ffffff;'>O gráfico acima mostra o total de vendas agrupadas por Unidade Federativa (UF). Vamos explorar alguns pontos importantes:</p>
+            <p style='color: #ffffff;'><strong>UF com maior desempenho:</strong> A região que se destaca com um total de vendas significativo é <strong style='color: #ffcc00;'>Paraná (PR)</strong>. Com vendas que alcançam até <strong>R$ 4 milhões</strong>, PR é um mercado crucial e representa uma grande oportunidade para expandir estratégias de marketing e aumentar a penetração de mercado.</p>
+            <p style='color: #ffffff;'><strong>Regiões com vendas moderadas:</strong> Estados como <strong style='color: #ffcc00;'>Minas Gerais (MG)</strong> e <strong style='color: #ffcc00;'>Rio de Janeiro (RJ)</strong> também mostram um desempenho notável, com vendas variando em torno de <strong>R$ 2 milhões</strong>. Essas regiões devem ser priorizadas em campanhas promocionais e eventos locais, visando engajar ainda mais os consumidores.</p>
+            <p style='color: #ffffff;'><strong>Regiões com baixo desempenho:</strong> Por outro lado, estados com vendas em torno de <strong>R$ 0 a R$ 1 milhão</strong>, como <strong style='color: #ffcc00;'>Piauí (PI)</strong> e <strong style='color: #ffcc00;'>Alagoas (AL)</strong>, apresentam desafios. Nesses casos, é essencial investigar as causas desse baixo desempenho e avaliar a possibilidade de adaptar ofertas ou fortalecer a presença de mercado.</p>
+            <p style='color: #ffffff;'><strong>Tendências ao longo do tempo:</strong> O gráfico de vendas ao longo do tempo revela tendências que podem ser úteis para planejar estoques e promoções. Observe que algumas UFs podem ter picos de vendas em determinados períodos, indicando sazonalidade que pode ser explorada em campanhas futuras.</p>
+            <p style='color: #ffffff;'>Em suma, a análise das vendas por região oferece insights valiosos que podem guiar as decisões estratégicas da empresa. Ao entender quais regiões apresentam maiores oportunidades e quais precisam de atenção, é possível direcionar esforços de vendas e marketing de forma mais eficiente.</p>
         </div>
         """, unsafe_allow_html=True
     )
