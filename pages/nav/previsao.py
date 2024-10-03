@@ -88,8 +88,8 @@ def run():
 
     st.markdown(
             """
-            <div style='background-color: #0000FF; padding: 15px; border-radius: 8px; margin-top: 20px;'>
-                <h4>🔍 Análise da Previsão de Vendas:</h4>
+            <div style='background-color: #1a1a1a; padding: 20px; border-radius: 10px; margin-top: 20px;'>
+                <h4 style='color: #f0db4f;'>🔍 Análise da Previsão de Vendas:</h4>
                 <p><strong>Desempenho do Modelo:</strong> O modelo de regressão linear apresentou um RMSE de **{:.2f}**, indicando que, em média, as previsões de vendas se desviam em R$ {:.2f} do valor real.</p>
                 <p><strong>Previsões Futuras:</strong></p>
                 <p>A tabela acima apresenta as vendas previstas para os próximos 6 anos. A análise dessas previsões pode auxiliar na tomada de decisões estratégicas:</p>
