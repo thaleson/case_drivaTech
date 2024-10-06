@@ -35,7 +35,7 @@ def run():
     st.title("Vendas por Unidade Federativa (UF)")
     st.markdown(
         """
-        O gráfico abaixo apresenta o valor total das vendas por UF. Este gráfico é útil para identificar onde estão localizados os maiores mercados e oportunidades.
+        O gráfico Acima apresenta o valor total das vendas por UF. Este gráfico é útil para identificar onde estão localizados os maiores mercados e oportunidades.
 
         **Descrição do Gráfico:**
         - O gráfico é um gráfico de barras intitulado **"Vendas por UF"**.
@@ -71,7 +71,7 @@ def run():
         """
         <div style='background-color: #1a1a1a; padding: 20px; border-radius: 10px; margin-top: 20px;'>
             <h4 style='color: #f0db4f;'>📊 Análise do Desempenho de Vendas ao Longo do Tempo por UF:</h4>
-            <p style='color: #ffffff;'>O gráfico abaixo apresenta a evolução das vendas ao longo de três meses, de outubro a dezembro de 2023, com foco em duas UFs específicas: UF e PR.</p>
+            <p style='color: #ffffff;'>O gráfico Acima apresenta a evolução das vendas ao longo de três meses, de outubro a dezembro de 2023, com foco em duas UFs específicas: UF e PR.</p>
             <p style='color: #ffffff;'><strong>Linha UF:</strong> Apresenta flutuações moderadas ao longo do tempo, sem grandes picos, indicando uma estabilidade nas vendas.</p>
             <p style='color: #ffffff;'><strong>Linha PR:</strong> Exibe flutuações mais acentuadas, com picos significativos. Esses picos podem estar relacionados a campanhas promocionais ou eventos específicos.</p>
             <p style='color: #ffffff;'><strong>Interpretação:</strong> A UF representa um cenário mais estável, sugerindo consistência nas vendas ao longo do tempo. A PR é mais volátil, com picos que podem ser explorados para identificar o que gerou esse aumento nas vendas e replicar essas estratégias no futuro.</p>
