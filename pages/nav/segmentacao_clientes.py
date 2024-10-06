@@ -53,7 +53,7 @@ def run():
             <h4 style='color: #FFFFFF;'>LEGENDA:</h4>
             <ul style='list-style-type: none; padding-left: 0;'>
                 <li><span style= padding: 10px; border-radius: 3px; color: #000;'>🔵 Grupo Azul Claro</span> - Grupo com menor gasto (menos de R$ 1.000).</li>
-                <li><span style= padding: 10px; border-radius: 3px; color: #000;'>🔴 Grupo Coral Claro</span> - Grupo com gasto moderado (~ R$ 5.000).</li>
+                <li><span style= padding: 10px; border-radius: 3px; color: #000;'>🔴 Grupo Coral Claro</span> - Grupo com gasto moderado ( R$ 5.000).</li>
                 <li><span style= padding: 10px; border-radius: 3px; color: #000;'>🟡 Grupo Amarelo </span> - Grupo com maior gasto (acima de R$ 20.000).</li>
             </ul>
         </div>
