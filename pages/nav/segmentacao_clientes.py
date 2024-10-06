@@ -53,8 +53,8 @@ def run():
             <h4 style='color: #FFFFFF;'>LEGENDA:</h4>
             <ul style='list-style-type: none; padding-left: 0;'>
                 <li><span style= padding: 10px; border-radius: 3px; color: #000;'>🔵 Grupo Azul Claro</span> - Grupo com menor gasto (menos de R$ 1.000).</li>
-                <li><span style= padding: 10px; border-radius: 3px; color: #000;'>🟢 Grupo Verde Claro</span> - Grupo com gasto moderado (~ R$ 5.000).</li>
-                <li><span style= padding: 10px; border-radius: 3px; color: #000;'>🔴 Grupo Coral Claro</span> - Grupo com maior gasto (acima de R$ 20.000).</li>
+                <li><span style= padding: 10px; border-radius: 3px; color: #000;'>🔴 Grupo Coral Claro</span> - Grupo com gasto moderado (~ R$ 5.000).</li>
+                <li><span style= padding: 10px; border-radius: 3px; color: #000;'>🟡 Grupo Amarelo </span> - Grupo com maior gasto (acima de R$ 20.000).</li>
             </ul>
         </div>
         """, unsafe_allow_html=True
@@ -70,12 +70,12 @@ def run():
                     <h5 style='color: #00008B;'>🔵 Grupo Azul Claro</h5>
                     <p style='color: #000;'>Este grupo apresenta o menor gasto médio, abaixo de R$ 1.000. É fundamental identificar os motivos por trás desse comportamento e explorar maneiras de incentivar esse segmento a aumentar seu investimento.</p>
                 </div>
-                <div style='flex: 1; min-width: 250px; margin: 10px; background-color: #98FB98; padding: 15px; border-radius: 10px;'>
-                    <h5 style='color: #006400;'>🟢 Grupo Verde Claro</h5>
-                    <p style='color: #000;'>O grupo verde claro está na média, com um gasto médio de R$ 5.000. Isso indica um potencial considerável para o aumento de engajamento e fidelização. Estratégias personalizadas podem ser eficazes para elevar o gasto desse grupo.</p>
-                </div>
                 <div style='flex: 1; min-width: 250px; margin: 10px; background-color: #F08080; padding: 15px; border-radius: 10px;'>
-                    <h5 style='color: #8B0000;'>🔴 Grupo Coral Claro</h5>
+                    <h5 style='color: #006400;'>🔴 Grupo Coral Claro</h5>
+                    <p style='color: #000;'>O grupo Coral claro está na média, com um gasto médio de R$ 5.000. Isso indica um potencial considerável para o aumento de engajamento e fidelização. Estratégias personalizadas podem ser eficazes para elevar o gasto desse grupo.</p>
+                </div>
+                <div style='flex: 1; min-width: 250px; margin: 10px; background-color: #FFFF00; padding: 15px; border-radius: 10px;'>
+                    <h5 style='color: #8B0000;'>🟡 Grupo Amarelo</h5>
                     <p style='color: #000;'>Este grupo é o que apresenta o maior gasto médio, próximo de R$ 20.000. Isso sugere que os clientes deste segmento são altamente engajados e provavelmente respondem bem a campanhas de marketing e promoções.</p>
                 </div>
             </div>
